@@ -10,11 +10,15 @@ cd "$dir" || exit
 
 cat var/log/* | awk -F "[, ]+" '/Failed password for invalid user/ {print $1, $2, $3, $11, $13}' > failed_login_data.txt
 
-cat var/log/* | awk -F "[, ]+" '/Failed password for/ && !/Failed password for invalid user/ {print $1, $2, $3, $9, $11}' > failed_login_data.txt 
+cat var/log/* | awk -F "[, ]+" '/Failed password for/ && !/Failed password for invalid user/ {print $1, $2, $3, $9, $11}' >> failed_login_data.txt
 
 #cat var/log/*| awk -F "[, ]+" 'match(/Failed password for invalid user/ {print $1, $2, $3, $11, $13, /Failed password for/ && !/Failed password for invalid user/ {print $1, $2, $3, $9, $11})'
 
 #Removing seconds and minutes from the times
-sed 's/:..//g' failed_login_data.txt
+sed -i .bak 's/:..//g' failed_login_data.txt
+
+#Return to main directory
+cd .. || exit
+
 
 
