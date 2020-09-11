@@ -2,7 +2,7 @@
 
 #The file that has the contest that needs to be wrapped
 
-contest_file=$1
+contents_file=$1
 
 #A basename shared between the header and the footer
 
@@ -12,4 +12,4 @@ specifier=$2
 
 output_file=$3
 
-cat "$specifier"_header.html "contest_file" "$specifier"_footer.html > "$output_file" 
+cat "$specifier"_header.html "$contents_file" "$specifier"_footer.html > "$output_file" 
