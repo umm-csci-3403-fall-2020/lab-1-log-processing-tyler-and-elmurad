@@ -8,9 +8,13 @@ main=$(pwd)
 
 cd "$1"||exit
 
-touch "country_dist.txt"
 
-cat ./*/failed_login_data.txt | awk '{print $9}' | sort < string.txt | join -e string.txt country_IP_map.txt | awk '{print "data.addRow([\x27"$2"\x27, "$1"]);"}' >> country_dist.txt
+touch "country_dist.txt"
+touch "string.txt"
+
+
+cat ./*/failed_login_data.txt | awk '{print $5}' | sort >> "$main"/string.txt
+join  "$main"/string.txt "$main"/etc/country_IP_map.txt | awk '{print $2}' | sort | uniq -c  | awk '{print "data.addRow([\x27"$2"\x27, "$1"]);"}' >> country_dist.txt
 
 #Taking back to the top level search directory
 
